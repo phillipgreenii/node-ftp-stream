@@ -22,13 +22,15 @@
   "homepage": "https://github.com/phillipgreenii/ftp-stream",
   "dependencies": {
     "debug": "^2.2.0",
-    "deferred-stream": "^0.1.0",
+    "deferred-stream": "^0.2.0",
     "ftp": "^0.3.10",
-    "through2": "^2.0.0"
+    "vinyl": "^0.5.0"
   },
   "devDependencies": {
     "ftpd": "^0.2.11",
     "stream-equal": "^0.1.5",
-    "tape": "^4.0.0"
+    "tape": "^4.0.0",
+    "through2": "^2.0.0",
+    "vinyl-fs": "^1.0.0"
   }
 }
