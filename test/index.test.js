@@ -122,3 +122,29 @@ test('stream should contain the correct amount of files (when array of one file)
   })).on('error', done);
 
 });
+
+test('stream should contain the correct amount of files (when array of multiple files)', function (t) {
+  t.plan(2);
+
+  var server = runFtpServer();
+  function done(error) {
+    t.error(error);
+    server.completelyShutdown();
+    t.end();
+  }
+
+  var files = ['/file0.txt', '/dir1/file1.txt', '/dir2/file2.txt'];
+  var expectedCount = files.length;
+
+  var counter = 0;
+  ftpStream({port:2100}, files)
+  .pipe(through2.obj(function(file, enc, callback){
+    file.contents.pipe(createDrain());
+    counter++;
+    callback();
+  }, function(){
+    t.equal(counter, expectedCount);
+    done();
+  })).on('error', done);
+
+});
