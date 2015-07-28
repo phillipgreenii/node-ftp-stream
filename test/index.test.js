@@ -26,6 +26,23 @@ test.Test.prototype.hasStreamItemCount = function (s, c, msg, extra) {
 };
 
 
+test.Test.prototype.hasStreamWithStreams = function (parentStreams, expectedChildStreams, msg, extra) {
+    var counter = 0;
+    var assert = this._assert;
+
+    return parentStreams.pipe(through2.obj(function(file, enc, callback){
+      var c = counter++;
+      streamEqual(expectedChildStreams[c], file.contents, function(err, equal) {
+        assert(equal, {
+            message : 'streams for ' + file.path + ' are equal',
+            operator : 'streamsMatch',
+            extra : extra
+        });
+        callback(err);
+      });
+    }));
+};
+
 function runFtpServer() {
   //console.log('ears');
   var ftpd = new FtpServer('127.0.0.1',{
@@ -121,16 +138,12 @@ test('stream should contain the correct contents (when one file)', function (t) 
   }
 
   var file = 'file0.txt';
-  ftpStream({port:2100}, file)
-  .pipe(through2.obj(function(file, enc, callback){
-    streamEqual(fs.createReadStream(path.join(__dirname, 'data', 'file0.txt')), file.contents, function(err, equal) {
-      t.ok(equal, "Streams for 'file0.txt' are not equal");
-      callback();
-    });
-  }, function(cb){
-    done();
-    cb();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, file);
+  var expectedStreams = [fs.createReadStream(path.join(__dirname, 'data', 'file0.txt'))];
+
+  t.hasStreamWithStreams(s, expectedStreams)
+  .on('finish', done)
+  .on('error', done);
 });
 
 test('stream should contain the correct amount of files (when array of one file)', function (t) {
@@ -164,16 +177,12 @@ test('stream should contain the correct contents (when array of one file)', func
   }
 
   var files = ['file0.txt'];
-  ftpStream({port:2100}, files)
-  .pipe(through2.obj(function(file, enc, callback){
-    streamEqual(fs.createReadStream(path.join(__dirname, 'data', 'file0.txt')), file.contents, function(err, equal) {
-      t.ok(equal, "Streams for 'file0.txt' are not equal");
-      callback();
-    });
-  }, function(cb){
-    done();
-    cb();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, files);
+  var expectedStreams = [fs.createReadStream(path.join(__dirname, 'data', 'file0.txt'))];
+
+  t.hasStreamWithStreams(s, expectedStreams)
+  .on('finish', done)
+  .on('error', done);
 });
 
 test('stream should contain the correct amount of files (when array of multiple files)', function (t) {
@@ -207,24 +216,13 @@ test('stream should contain the correct contents (when array of multiple files)'
   }
 
   var files = ['/file0.txt', '/dir1/file1.txt', '/dir2/file2.txt'];
-  var counter = 0;
-  var f;
-  ftpStream({port:2100}, files)
-  .pipe(through2.obj(function(file, enc, callback){
-    if(counter == 0) {
-      f = path.join(__dirname, 'data', 'file0.txt');
-    } else if(counter == 1) {
-      f = path.join(__dirname, 'data', 'dir1', 'file1.txt');
-    } else if(counter == 2) {
-      f = path.join(__dirname, 'data', 'dir2', 'file2.txt');
-    }
-    streamEqual(fs.createReadStream(f), file.contents, function(err, equal) {
-      t.ok(equal, "Streams for '"+files[counter]+"' are not equal");
-      callback();
-    });
-    counter++;
-  }, function(cb){
-    done();
-    cb();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, files);
+  var expectedStreams = [
+    fs.createReadStream(path.join(__dirname, 'data', 'file0.txt')),
+    fs.createReadStream(path.join(__dirname, 'data', 'dir1', 'file1.txt')),
+    fs.createReadStream(path.join(__dirname, 'data', 'dir2', 'file2.txt'))];
+
+  t.hasStreamWithStreams(s, expectedStreams)
+  .on('finish', done)
+  .on('error', done);
 });
