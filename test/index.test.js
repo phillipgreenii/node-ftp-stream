@@ -7,6 +7,25 @@ var FtpServer = require('ftpd').FtpServer;
 var through2 = require('through2');
 var vinylFs = require('vinyl-fs');
 
+test.Test.prototype.hasStreamItemCount = function (s, c, msg, extra) {
+    var counter = 0;
+
+    return s.pipe(through2.obj(function(file, enc, callback){
+      file.contents.pipe(createDrain());
+      counter++;
+      callback();
+    }, function(){
+      this._assert(counter === c,{
+          message : msg || 'should have correct count',
+          operator : 'hasStreamItemCount',
+          actual : counter,
+          expected : c,
+          extra : extra
+      });
+    }.bind(this)));
+};
+
+
 function runFtpServer() {
   //console.log('ears');
   var ftpd = new FtpServer('127.0.0.1',{
@@ -84,17 +103,11 @@ test('stream should contain the correct amount of files (when one file)', functi
   var file = 'file0.txt';
   var expectedCount = 1;
 
-  var counter = 0;
-  ftpStream({port:2100}, file)
-  .pipe(through2.obj(function(file, enc, callback){
-    file.contents.pipe(createDrain());
-    counter++;
-    callback();
-  }, function(){
-    t.equal(counter, expectedCount);
-    done();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, file);
 
+  t.hasStreamItemCount(s, expectedCount)
+  .on('finish', done)
+  .on('error', done);
 });
 
 test('stream should contain the correct contents (when one file)', function (t) {
@@ -133,17 +146,11 @@ test('stream should contain the correct amount of files (when array of one file)
   var files = ['file0.txt'];
   var expectedCount = files.length;
 
-  var counter = 0;
-  ftpStream({port:2100}, files)
-  .pipe(through2.obj(function(file, enc, callback){
-    file.contents.pipe(createDrain());
-    counter++;
-    callback();
-  }, function(){
-    t.equal(counter, expectedCount);
-    done();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, files);
 
+  t.hasStreamItemCount(s, expectedCount)
+  .on('finish', done)
+  .on('error', done);
 });
 
 test('stream should contain the correct contents (when array of one file)', function (t) {
@@ -182,17 +189,11 @@ test('stream should contain the correct amount of files (when array of multiple 
   var files = ['/file0.txt', '/dir1/file1.txt', '/dir2/file2.txt'];
   var expectedCount = files.length;
 
-  var counter = 0;
-  ftpStream({port:2100}, files)
-  .pipe(through2.obj(function(file, enc, callback){
-    file.contents.pipe(createDrain());
-    counter++;
-    callback();
-  }, function(){
-    t.equal(counter, expectedCount);
-    done();
-  })).on('error', done);
+  var s = ftpStream({port:2100}, files);
 
+  t.hasStreamItemCount(s, expectedCount)
+  .on('finish', done)
+  .on('error', done);
 });
 
 test('stream should contain the correct contents (when array of multiple files)', function (t) {
