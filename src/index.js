@@ -8,6 +8,7 @@ var async = require('async');
 
 function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
       var c = new FtpClient();
+      //TODO add c.on('error')
       c.on('ready', function() {
         debug('ready to download %s', files);
 
@@ -17,16 +18,17 @@ function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
 
             c.get(filePath, function(err, stream) {
               if (err) {
-                debug('failed to get `%s`: %s',filePath, err.message);
+                if(err.code === 550) {
+                  debug('File not found: %s', filePath);
+                  err = new Error("File Not Found: " + filePath)
+                }
                 deferredStream.emit('error', err);
-                callback(err);
-                return;
+                return callback(err);
               }
               debug('got `%s`', filePath);
 
-              //NOTE: this enforcment of one GET at a time is due to a bug in
-              // ftp that doesn't handle sockets correctly when GETing multiple filess
               stream.on('error',function(e){
+                debug('Error transfering `%s`: %s', filePath, e);
                 callback(e);
               });
               stream.on('end',function(){
@@ -41,6 +43,8 @@ function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
           };
         });
 
+        //NOTE: as far as I can tell, FTP only supports on GET at a time
+        // on a single connection, so this enforces that.
         async.series(getCalls, function(err){
           if(!err) {
             deferredStream.end();
