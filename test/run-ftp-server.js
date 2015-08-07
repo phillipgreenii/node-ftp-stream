@@ -2,7 +2,9 @@
 var FtpServer = require('ftpd').FtpServer;
 var path = require('path');
 
-function runFtpServer() {
+function runFtpServer(options) {
+  options = options || {enableAuth: false};
+
   var ftpd = new FtpServer('127.0.0.1',{
     getInitialCwd: function () {
       return '/';
@@ -23,10 +25,18 @@ function runFtpServer() {
     var u;
     connection.on('command:user', function (user, success, failure) {
       u = user;
-      success();
+      if(!options.enableAuth || u === 'user') {
+        return success();
+      } else {
+        return failure('unknown user name' + u);
+      }
     });
     connection.on('command:pass', function (pass, success, failure) {
-      success(u);
+      if(!options.enableAuth || (u === 'user' && pass === 'password')) {
+        return success(u);
+      } else {
+        return failure('incorrect credentials' + u + ":" + pass);
+      }
     });
   });
 

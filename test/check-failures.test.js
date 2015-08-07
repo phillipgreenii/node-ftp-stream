@@ -30,3 +30,25 @@ test('stream emit error when file not found', function (t) {
   .pipe(createDrain())
   .on('finish', done);
 });
+
+
+test('stream emit error when incorrect credentials', function (t) {
+  t.plan(1);
+
+  var server = runFtpServer({enableAuth: true});
+  function done(error) {
+    if(!error) {
+      t.fail('error should have happend')
+    }
+    t.equal(error.message, "Credentials are not correct");
+    server.completelyShutdown();
+    t.end();
+  }
+
+  var file = 'fileX.txt';
+
+  var s = ftpStream({port:2100}, file)
+  .on('error', done)
+  .pipe(createDrain())
+  .on('finish', done);
+});
