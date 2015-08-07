@@ -40,7 +40,7 @@ test('stream emit error when incorrect credentials', function (t) {
     if(!error) {
       t.fail('error should have happend')
     }
-    t.equal(error.message, "Credentials are not correct");
+    t.equal(error.message, "Not logged in.");
     server.completelyShutdown();
     t.end();
   }

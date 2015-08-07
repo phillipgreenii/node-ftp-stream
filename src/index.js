@@ -9,9 +9,6 @@ var async = require('async');
 function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
       var c = new FtpClient();
       c.on('error', function(e) {
-		if(e.code === 530) {
-			e = new Error('Credentials are not correct');
-		}
 		deferredStream.emit('error', e);
 	});
 
