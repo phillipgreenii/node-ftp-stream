@@ -9,6 +9,7 @@ var async = require('async');
 function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
       var c = new FtpClient();
       c.on('error', function(e) {
+                debug('Connection Error: %s', e);
 		deferredStream.emit('error', e);
 	});
 
