@@ -45,7 +45,26 @@ test('stream emit error when incorrect credentials', function (t) {
     t.end();
   }
 
-  var file = 'fileX.txt';
+  var file = 'file.txt';
+
+  var s = ftpStream({port:2100}, file)
+  .on('error', done)
+  .pipe(createDrain())
+  .on('finish', done);
+});
+
+test('stream emit error when incorrect host', function (t) {
+  t.plan(1);
+
+  function done(error) {
+    if(!error) {
+      t.fail('error should have happend')
+    }
+    t.equal(error.message, "connect ECONNREFUSED");
+    t.end();
+  }
+
+  var file = 'file.txt';
 
   var s = ftpStream({port:2100}, file)
   .on('error', done)
