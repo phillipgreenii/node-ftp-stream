@@ -1,6 +1,6 @@
 # ftp-stream
 
-This is a wraps `ftp` to provide a streaming interface for downloading files via FTP.
+This is wraps `ftp` to provide a streaming interface for downloading files via FTP.
 
 ##Install
 
