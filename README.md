@@ -30,7 +30,7 @@ An array of files to download.
 ###Download `README.txt` from `localhost` on port `21` as `anonymous`
 ```javascript
 var fs = require('vinyl-fs');
-var ftpStream = require('ftm-stream');
+var ftpStream = require('ftp-stream');
 
 ftpStream(['README.txt'])
 .pipe(fs.dest('./output'));
@@ -39,7 +39,7 @@ ftpStream(['README.txt'])
 ###Download `secret.txt` from `ftp.secret.info` on port `1234` as `walter`
 ```javascript
 var fs = require('vinyl-fs');
-var ftpStream = require('ftm-stream');
+var ftpStream = require('ftp-stream');
 
 var connectionInfo = {
   host: 'ftp.secret.info',
