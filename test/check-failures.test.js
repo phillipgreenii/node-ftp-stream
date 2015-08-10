@@ -10,15 +10,16 @@ function createDrain() {
   });
 }
 
-test('stream emit error when file not found', function (t) {
+test('stream should emit error when file not found', function (t) {
   t.plan(1);
 
   var server = runFtpServer();
   function done(error) {
     if(!error) {
       t.fail('error should have happend')
+    } else {
+      t.equal(error.message, "File Not Found: fileX.txt");
     }
-    t.equal(error.message, "File Not Found: fileX.txt");
     server.completelyShutdown();
     t.end();
   }
@@ -32,15 +33,16 @@ test('stream emit error when file not found', function (t) {
 });
 
 
-test('stream emit error when incorrect credentials', function (t) {
+test('stream should emit error when incorrect credentials', function (t) {
   t.plan(1);
 
   var server = runFtpServer({enableAuth: true});
   function done(error) {
     if(!error) {
       t.fail('error should have happend')
+    } else {
+      t.equal(error.message, "Not logged in.");
     }
-    t.equal(error.message, "Not logged in.");
     server.completelyShutdown();
     t.end();
   }
@@ -53,14 +55,15 @@ test('stream emit error when incorrect credentials', function (t) {
   .on('finish', done);
 });
 
-test('stream emit error when incorrect host', function (t) {
+test('stream should emit error when incorrect host', function (t) {
   t.plan(1);
 
   function done(error) {
     if(!error) {
       t.fail('error should have happend')
+    } else {
+      t.equal(error.message, "connect ECONNREFUSED");
     }
-    t.equal(error.message, "connect ECONNREFUSED");
     t.end();
   }
 
@@ -71,3 +74,4 @@ test('stream emit error when incorrect host', function (t) {
   .pipe(createDrain())
   .on('finish', done);
 });
+
