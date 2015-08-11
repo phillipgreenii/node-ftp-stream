@@ -1,4 +1,12 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "0.10"
+- '0.12'
+- '0.10'
+deploy:
+  provider: npm
+  email: phillip.green.ii@gmail.com
+  api_key:
+    secure: QnZsHwBZzn0K579t8PQ3+oocSZtD91bAzMbheI3jMpTfCnogSOaiSIkzMnRYCVx9qi+Js9QHiuRJmsHs3kHhexG2JFxj7Zmh3wXMXwgYLNQtTKj15JFX7cj1WvrisRG1BnX9q7Y5Bt+KodG2ys99ssd76KmQdkJo7iCViApgj500//xw7jqZV7Rm/sUwSyrBEQOYT5IYxKjnYFQp1jTKuEcPZad6ApXXTrmOiYSeAxH9pQX/I8Wdfm33YWX7C+mw3c7QW58GPeGZPzbJdrEm8pWqM/NoB8Uwh2b8jwoLKtlhpoLslDA5ftmH+7ddRxPjTHSRrOQCEqtCxFcBLkGaMqIeAfILBmIJPk1PNn06Wz/lYJRleeNsEW5igp6z+FcHNYWZ0G3t0W0xU9bhzo2D+6sXYH6d8nO+ZzolvXFPVG8Sq1EDo5uR6KOjQE/e4iA4vsUQKYvV/XwfGs6oKQm7BVLnqnIABo/8gX5XMUjcmSGb+u+WQDQWsEmFwwizBBtwSeClTcbHTFQdeQVZdnHI/Aro/qKn+//mVBU+3iacukrzQwjLBhWKpIaWc9nCZ3FGVQm7GeE97bW9ti7AHLBtebsogrFY3W0lK6F9EuyVFlOZh8JBh70+hagokDMj3BNNXWHCac2xMa5JRnchmmkwFvl3zvZk3F+HFxO/zxThMmE=
+  on:
+    tags: true
+    repo: phillipgreenii/node-ftp-stream
