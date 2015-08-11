@@ -1,4 +1,5 @@
 # ftp-stream
+[![npm version](https://badge.fury.io/js/ftp-stream.svg)](http://badge.fury.io/js/ftp-stream)
 [![Build Status](https://travis-ci.org/phillipgreenii/node-ftp-stream.svg)](https://travis-ci.org/phillipgreenii/node-ftp-stream)
 [![Code Climate](https://codeclimate.com/github/phillipgreenii/node-ftp-stream/badges/gpa.svg)](https://codeclimate.com/github/phillipgreenii/node-ftp-stream)
 [![david-dm](https://david-dm.org/phillipgreenii/node-ftp-stream.svg)](https://david-dm.org/phillipgreenii/node-ftp-stream)
