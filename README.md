@@ -53,5 +53,12 @@ ftpStream(connectionInfo,['secret.txt'])
 .pipe(fs.dest('./output'));
 ```
 
+## Releasing
+Travis has been configured to publish upon tagged commits; run the following for npm to update the version and push the appropriate commits to trigger a deploy from Travis.
+
+```bash
+npm version
+```
+
 ## License
 Copyright (c) 2015, Phillip Green II. Licensed under the MIT license.
