@@ -4,7 +4,9 @@
   "description": "A streaming interfaces for downloading files via FTP.",
   "main": "src/index.js",
   "scripts": {
-    "test": "node ./node_modules/tape/bin/tape test/*.test.js test/**/*.test.js"
+    "test": "node ./node_modules/tape/bin/tape test/*.test.js test/**/*.test.js",
+    "preversion": "npm run test",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -12,6 +14,9 @@
   },
   "keywords": [
     "ftp",
+    "client",
+    "get",
+    "download",
     "stream"
   ],
   "license": "MIT",
