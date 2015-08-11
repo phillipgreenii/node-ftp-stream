@@ -1,6 +1,6 @@
 {
   "name": "ftp-stream",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A streaming interfaces for downloading files via FTP.",
   "main": "src/index.js",
   "scripts": {
