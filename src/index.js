@@ -24,7 +24,7 @@ function _streamFtpGet(ftpConnectOptions, files, deferredStream) {
               if (err) {
                 if(err.code === 550) {
                   debug('File not found: %s', filePath);
-                  err = new Error("File Not Found: " + filePath)
+                  err = new Error("File Not Found: " + filePath);
                 }
                 deferredStream.emit('error', err);
                 return callback(err);
