@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/phillipgreenii/ftp-stream"
+    "url": "https://github.com/phillipgreenii/node-ftp-stream"
   },
   "keywords": [
     "ftp",
@@ -17,9 +17,9 @@
   "license": "MIT",
   "author": "Phillip Green II",
   "bugs": {
-    "url": "https://github.com/phillipgreenii/ftp-stream/issues"
+    "url": "https://github.com/phillipgreenii/node-ftp-stream/issues"
   },
-  "homepage": "https://github.com/phillipgreenii/ftp-stream",
+  "homepage": "https://github.com/phillipgreenii/node-ftp-stream",
   "dependencies": {
     "async": "^1.4.2",
     "debug": "^2.2.0",
