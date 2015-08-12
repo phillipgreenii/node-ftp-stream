@@ -10,3 +10,10 @@ deploy:
   on:
     tags: true
     repo: phillipgreenii/node-ftp-stream
+before_script: 
+- npm install -g istanbul
+- npm install -g codeclimate-test-reporter
+script:
+- npm run coverage
+after_script:
+- codeclimate-test-reporter < reports/coverage/lcov.info
