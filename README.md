@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/phillipgreenii/node-ftp-stream.svg)](https://travis-ci.org/phillipgreenii/node-ftp-stream)
 [![Code Climate](https://codeclimate.com/github/phillipgreenii/node-ftp-stream/badges/gpa.svg)](https://codeclimate.com/github/phillipgreenii/node-ftp-stream)
 [![david-dm](https://david-dm.org/phillipgreenii/node-ftp-stream.svg)](https://david-dm.org/phillipgreenii/node-ftp-stream)
+[![Test Coverage](https://codeclimate.com/github/phillipgreenii/node-ftp-stream/badges/coverage.svg)](https://codeclimate.com/github/phillipgreenii/node-ftp-stream/coverage)
 
 This is wraps `ftp` to provide a streaming interface for downloading files via FTP.
 
