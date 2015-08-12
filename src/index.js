@@ -65,7 +65,7 @@ function ftpStream(ftpConnectOptions, files) {
   //adjust for optional ftpConnectOptions
   if(!files){
     files = ftpConnectOptions;
-    ftpConnectOptions = null;
+    ftpConnectOptions = undefined;
   }
   //ensure files specified
   if(!files) {

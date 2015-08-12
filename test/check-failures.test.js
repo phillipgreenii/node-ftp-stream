@@ -69,9 +69,17 @@ test('stream should emit error when incorrect host', function (t) {
 
   var file = 'file.txt';
 
-  var s = ftpStream({port:2100}, file)
+  var s = ftpStream(file)
   .on('error', done)
   .pipe(createDrain())
   .on('finish', done);
 });
 
+test('it should throw error if no files specified', function(t) {
+  t.plan(1);
+
+  t.throws(function () {
+    ftpStream();
+  }, "'files' must be specified");
+  t.end();
+});
