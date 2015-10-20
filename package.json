@@ -34,7 +34,7 @@
     "vinyl": "^0.5.1"
   },
   "devDependencies": {
-    "ftpd": "sstur/nodeftpd",
+    "ftpd": "^0.2.12",
     "istanbul": "^0.3.17",
     "stream-equal": "^0.1.5",
     "tape": "^4.0.3",
