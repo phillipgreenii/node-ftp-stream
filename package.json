@@ -27,18 +27,18 @@
   },
   "homepage": "https://github.com/phillipgreenii/node-ftp-stream",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^2.0.1",
     "debug": "^2.2.0",
     "deferred-stream": "^0.2.0",
     "ftp": "^0.3.10",
-    "vinyl": "^0.5.1"
+    "vinyl": "^1.2.0"
   },
   "devDependencies": {
     "ftpd": "^0.2.12",
-    "istanbul": "^0.3.17",
+    "istanbul": "^0.4.4",
     "stream-equal": "^0.1.5",
     "tape": "^4.0.3",
     "through2": "^2.0.0",
-    "vinyl-fs": "^1.0.0"
+    "vinyl-fs": "^2.4.3"
   }
 }
